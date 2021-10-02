@@ -211,7 +211,7 @@ all: unset;
 
 /* The Close Button */
 .close {
-  color: #aaaaaa;
+  color:teal;
   float: right;
   font-size: 28px;
   font-weight: bold;

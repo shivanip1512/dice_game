@@ -142,12 +142,17 @@ main {
   top: 64rem;
   font-size: 13px;
   text-transform: unset;
-  padding: 6px;
+}
+.btn--modal{
+  border-radius: 10px;
+  padding: 30px;
+  text-transform: unset;
 }
 
-.btn--instructions::first-letter{
+.btn--instructions::first-letter,.btn--modal::first-letter{
 all: unset;
 }
+
 
 .btn:active {
   transform: translate(-50%, 3px);

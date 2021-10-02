@@ -94,3 +94,34 @@ document.querySelector('.btn--new').addEventListener('click', function () {
       .classList.remove('player--winner');
   }
 });
+
+
+var modal = document.getElementById("myModal");
+var btn = document.getElementById("myBtn");
+var span = document.getElementsByClassName("close")[0];
+
+btn.onclick = function () {
+  modal.style.borderRadius = "unset";
+  modal.style.position = "relative";
+  modal.style.display = "block";
+  document.body.style.backgroundImage = 'linear-gradient(190deg,teal,black)';
+  document.querySelector("main").style.display = "none";
+  document.querySelector('.btn--instructions').style.display = "none";
+}
+span.onclick = function () {
+  modal.style.display = "none";
+  document.body.style.backgroundImage = 'linear-gradient(to top left, #753682 0%, #bf2e34 100%)';
+  document.querySelector('.btn--instructions').style.display = "block";
+  if (document.querySelector("main").style.removeProperty) {
+    document.querySelector("main").style.removeProperty('display');
+  } else {
+    document.querySelector("main").style.removeAttribute('display');
+  }
+}
+window.onclick = function (event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+    document.body.style.backgroundImage = 'linear-gradient(to top left, #753682 0%, #bf2e34 100%)';
+    document.querySelector("main").remove("display");
+  }
+}

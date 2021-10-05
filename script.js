@@ -38,6 +38,7 @@ const setActivePlayerScore = function () {
   document.getElementById(`score--${activePlayer}`).textContent = score;
   if (score >= 100) {
     document.querySelector('.player--active').classList.add('player--winner');
+    document.querySelector('.currentActive').classList.remove('currentActive');
   }
 };
 
@@ -46,13 +47,17 @@ const getActivePlayerScore = function () {
 };
 
 const switchPlayer = function () {
-  diceEl.classList.add('hidden');
+  // diceEl.classList.add('hidden');
   const players = document.querySelectorAll('.player');
   for (let i = 0; i < players.length; i++) {
     if (players[i].classList.contains('player--active')) {
       players[i].classList.remove('player--active');
+      players[i].children[2].classList.remove('currentActive');
+
     } else {
       players[i].classList.add('player--active');
+      players[i].children[2].classList.add('currentActive');
+      //    document.getElementById(`current--${activePlayer}`).parentElement.style.animation = "gradient 15s ease infinite";
     }
   }
 };
@@ -104,13 +109,11 @@ btn.onclick = function () {
   modal.style.borderRadius = "unset";
   modal.style.position = "relative";
   modal.style.display = "block";
-  document.body.style.backgroundImage = 'linear-gradient(190deg,teal,black)';
   document.querySelector("main").style.display = "none";
   document.querySelector('.btn--instructions').style.display = "none";
 }
 span.onclick = function () {
   modal.style.display = "none";
-  document.body.style.backgroundImage = 'linear-gradient(to top left, #753682 0%, #bf2e34 100%)';
   document.querySelector('.btn--instructions').style.display = "block";
   if (document.querySelector("main").style.removeProperty) {
     document.querySelector("main").style.removeProperty('display');
@@ -121,7 +124,6 @@ span.onclick = function () {
 window.onclick = function (event) {
   if (event.target == modal) {
     modal.style.display = "none";
-    document.body.style.backgroundImage = 'linear-gradient(to top left, #753682 0%, #bf2e34 100%)';
     document.querySelector("main").remove("display");
   }
 }

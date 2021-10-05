@@ -38,7 +38,6 @@ const setActivePlayerScore = function () {
   document.getElementById(`score--${activePlayer}`).textContent = score;
   if (score >= 100) {
     document.querySelector('.player--active').classList.add('player--winner');
-    document.querySelector('.currentActive').classList.remove('currentActive');
   }
 };
 
@@ -48,16 +47,18 @@ const getActivePlayerScore = function () {
 
 const switchPlayer = function () {
   // diceEl.classList.add('hidden');
-  const players = document.querySelectorAll('.player');
-  for (let i = 0; i < players.length; i++) {
-    if (players[i].classList.contains('player--active')) {
-      players[i].classList.remove('player--active');
-      players[i].children[2].classList.remove('currentActive');
+  if (!document.querySelector('.player--winner')) {
+    const players = document.querySelectorAll('.player');
+    for (let i = 0; i < players.length; i++) {
+      if (players[i].classList.contains('player--active')) {
+        players[i].classList.remove('player--active');
+        players[i].children[2].classList.remove('currentActive');
 
-    } else {
-      players[i].classList.add('player--active');
-      players[i].children[2].classList.add('currentActive');
-      //    document.getElementById(`current--${activePlayer}`).parentElement.style.animation = "gradient 15s ease infinite";
+      } else {
+        players[i].classList.add('player--active');
+        players[i].children[2].classList.add('currentActive');
+        //    document.getElementById(`current--${activePlayer}`).parentElement.style.animation = "gradient 15s ease infinite";
+      }
     }
   }
 };

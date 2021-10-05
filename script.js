@@ -13,7 +13,7 @@ diceEl.classList.add('hidden');
 const getActivePlayer = function () {
   const activePlayerEl = document.querySelector('.player--active');
   let currActivePlayer;
-  console.log(activePlayerEl.classList);
+  //console.log(activePlayerEl.classList);
   if (activePlayerEl.classList.contains('player--0')) {
     currActivePlayer = '0';
   } else if (activePlayerEl.classList.contains('player--1')) {
@@ -66,7 +66,7 @@ const switchPlayer = function () {
 document.querySelector('.btn--roll').addEventListener('click', function () {
   if (!document.querySelector('.player--winner')) {
     let diceNumber = Math.trunc(Math.random() * 6) + 1;
-    console.log('diceNumber :' + diceNumber);
+    // console.log('diceNumber :' + diceNumber);
     let activePlayerContent = Number(getActivePlayerCurrentScore());
     diceEl.src = `dice-${diceNumber}.png`;
     diceEl.classList.remove('hidden');

@@ -241,3 +241,14 @@ all: unset;
   text-decoration: none;
   cursor: pointer;
 }
+
+.socialMedia{
+  color: rgba(255, 255, 255,0.9);
+  font-size: 25px !important;
+  padding-right: 6px;
+}
+
+#references{
+    position: absolute;
+    bottom: 9px;
+}

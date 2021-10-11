@@ -26,7 +26,7 @@ body {
 main {
   position: relative;
   width: 100rem;
-  height: 60rem;
+  height: 57rem;
   background-color: rgba(255, 255, 255, 0.35);
   backdrop-filter: blur(200px);
   filter: blur();
@@ -34,6 +34,7 @@ main {
   border-radius: 9px;
   overflow: hidden;
   display: flex;
+  margin-bottom: 29px;
 }
 
 .player {
@@ -152,13 +153,13 @@ main {
   top: 4rem;
 }
 .btn--roll {
-  top: 39.3rem;
+  top: 33.3rem;
 }
 .btn--hold {
-  top: 46.1rem;
+  top: 40rem;
 }
 .btn--instructions{
-  top: 64rem;
+  bottom: 6rem;
   font-size: 13px;
   text-transform: unset;
 }

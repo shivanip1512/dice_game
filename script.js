@@ -2,6 +2,7 @@
 
 const score0El = document.querySelector('#score--0');
 const score1El = document.getElementById('score--1');
+let robotScore;
 
 score0El.textContent = 0;
 score1El.textContent = 0;
@@ -13,12 +14,13 @@ diceEl.classList.add('hidden');
 const getActivePlayer = function () {
   const activePlayerEl = document.querySelector('.player--active');
   let currActivePlayer;
-  //console.log(activePlayerEl.classList);
+  // console.log(activePlayerEl.classList);
   if (activePlayerEl.classList.contains('player--0')) {
     currActivePlayer = '0';
   } else if (activePlayerEl.classList.contains('player--1')) {
     currActivePlayer = '1';
   }
+  // console.log("currActivePlayer :", currActivePlayer);
   return currActivePlayer;
 };
 
@@ -45,8 +47,22 @@ const getActivePlayerScore = function () {
   return Number(document.getElementById(`score--${activePlayer}`).textContent);
 };
 
+const displayDice = function (time) {
+  setTimeout(function () {
+    let dice;
+    do {
+      dice = Math.trunc(Math.random() * 6) + 1;
+    } while (dice > robotScore);
+    dice = dice == 1 ? 4 : dice;
+    // console.log("dice :", dice);
+    diceEl.src = `dice-${dice}.png`;
+  }, time * 1000);
+}
+
 const switchPlayer = function () {
   // diceEl.classList.add('hidden');
+  // console.log("b4 switch activePlayer :", activePlayer);
+
   if (!document.querySelector('.player--winner')) {
     const players = document.querySelectorAll('.player');
     for (let i = 0; i < players.length; i++) {
@@ -57,14 +73,40 @@ const switchPlayer = function () {
       } else {
         players[i].classList.add('player--active');
         players[i].children[2].classList.add('currentActive');
-        //    document.getElementById(`current--${activePlayer}`).parentElement.style.animation = "gradient 15s ease infinite";
       }
+    }
+    activePlayer = getActivePlayer();
+    // console.log("after switch activePlayer :", activePlayer);
+    if (activePlayer == 1) {
+
+      document.querySelector('.btn--roll').style.display = 'none';
+      document.querySelector('.btn--hold').style.display = 'none';
+
+      robotScore = Math.trunc(Math.random() * 15) + 1;
+      // console.log("robotScore : ", robotScore);
+      displayDice(0.5);
+      displayDice(1);
+      displayDice(1.5);
+      displayDice(2);
+
+      setTimeout(function () {
+        robotScore = robotScore == 1 ? 0 : robotScore;
+        setActivePlayerCurrentScore(robotScore);
+      }, 2000);
+      setTimeout(function () {
+        document.querySelector('.btn--hold').click();
+      }, 2500);
+    }
+    else {
+      document.querySelector('.btn--roll').style.display = 'unset';
+      document.querySelector('.btn--hold').style.display = 'unset';
     }
   }
 };
 
+
 document.querySelector('.btn--roll').addEventListener('click', function () {
-  if (!document.querySelector('.player--winner')) {
+  if (!document.querySelector('.player--winner') && activePlayer != 1) {
     let diceNumber = Math.trunc(Math.random() * 6) + 1;
     // console.log('diceNumber :' + diceNumber);
     let activePlayerContent = Number(getActivePlayerCurrentScore());
@@ -95,12 +137,18 @@ document.querySelector('.btn--new').addEventListener('click', function () {
   for (let i = 0; i < 2; i++) {
     document.getElementById(`current--${i}`).textContent = 0;
     document.getElementById(`score--${i}`).textContent = 0;
-    document
-      .querySelector('.player--winner')
-      .classList.remove('player--winner');
+  }
+  document.querySelector('.player--winner').classList.remove('player--winner');
+
+  if (document.querySelector('.player--1').classList.contains('player--active')) {
+    document.querySelector('.player--1').classList.remove('player--active');
+    document.querySelector('.player--1').children[2].classList.remove('currentActive');
+    document.querySelector('.player--0').classList.add('player--active');
+    document.querySelector('.player--0').children[2].classList.add('currentActive');
+    document.querySelector('.btn--roll').style.display = 'unset';
+    document.querySelector('.btn--hold').style.display = 'unset';
   }
 });
-
 
 var modal = document.getElementById("myModal");
 var btn = document.getElementById("myBtn");

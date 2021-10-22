@@ -52,10 +52,17 @@ const displayDice = function (time) {
   let dice = 0;
   setTimeout(function () {
     dice = Math.trunc(Math.random() * 6) + 1;
-    dice = dice == 1 ? 4 : dice;
     console.log("dice :", dice);
+    if (roboDice == -1) {
+      dice = 1;
+    }
     diceEl.src = `dice-${dice}.png`;
-    roboDice += dice;
+    if (dice == 1) {
+      roboDice = -1;
+    }
+    if (roboDice >= 0) {
+      roboDice += dice;
+    }
   }, time * 1000);
   console.log("out dice: ", dice);
 };
@@ -89,7 +96,9 @@ const switchPlayer = function () {
       displayDice(2);
       
       setTimeout(function () {
-        robotScore = roboDice;
+        if (roboDice > 0) {
+          robotScore = roboDice;
+        }
         roboDice = 0;
         robotScore = robotScore == 1 ? 0 : robotScore;
         setActivePlayerCurrentScore(robotScore);

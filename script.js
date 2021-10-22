@@ -3,6 +3,7 @@
 const score0El = document.querySelector("#score--0");
 const score1El = document.getElementById("score--1");
 let robotScore;
+let roboDice = 0;
 
 score0El.textContent = 0;
 score1El.textContent = 0;
@@ -48,15 +49,15 @@ const getActivePlayerScore = function () {
 };
 
 const displayDice = function (time) {
+  let dice = 0;
   setTimeout(function () {
-    let dice;
-    do {
-      dice = Math.trunc(Math.random() * 6) + 1;
-    } while (dice > robotScore);
+    dice = Math.trunc(Math.random() * 6) + 1;
     dice = dice == 1 ? 4 : dice;
-    // console.log("dice :", dice);
+    console.log("dice :", dice);
     diceEl.src = `dice-${dice}.png`;
+    roboDice += dice;
   }, time * 1000);
+  console.log("out dice: ", dice);
 };
 
 const switchPlayer = function () {
@@ -80,14 +81,16 @@ const switchPlayer = function () {
       document.querySelector(".btn--roll").style.display = "none";
       document.querySelector(".btn--hold").style.display = "none";
 
-      robotScore = Math.trunc(Math.random() * 15) + 1;
+      robotScore = 0;
       // console.log("robotScore : ", robotScore);
       displayDice(0.5);
       displayDice(1);
       displayDice(1.5);
       displayDice(2);
-
+      
       setTimeout(function () {
+        robotScore = roboDice;
+        roboDice = 0;
         robotScore = robotScore == 1 ? 0 : robotScore;
         setActivePlayerCurrentScore(robotScore);
       }, 2000);
@@ -130,6 +133,7 @@ document.querySelector(".btn--hold").addEventListener("click", function () {
 });
 
 document.querySelector(".btn--new").addEventListener("click", function () {
+  activePlayer = 0;
   for (let i = 0; i < 2; i++) {
     document.getElementById(`current--${i}`).textContent = 0;
     document.getElementById(`score--${i}`).textContent = 0;

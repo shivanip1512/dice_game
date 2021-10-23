@@ -41,6 +41,8 @@ const setActivePlayerScore = function () {
   document.getElementById(`score--${activePlayer}`).textContent = score;
   if (score >= 100) {
     document.querySelector(".player--active").classList.add("player--winner");
+    document.querySelector(".player--active").classList.add("particletext", "confetti");
+      confetti();
   }
 };
 
@@ -195,19 +197,25 @@ window.onclick = function (event) {
 var inputBtn = document.getElementById("inputBtn");
 var inputModal = document.getElementById("myInputModal");
 var closeInputModal = document.getElementById("closeInput");
+var gameName = document.getElementById("gameName");
+var diceName = document.querySelector('.NamePos');
 
 inputBtn.onclick = function () {
   inputModal.style.borderRadius = "unset";
   inputModal.style.position = "relative";
   inputModal.style.display = "block";
+  gameName.style.display = "block";
+  diceName.style.display = "block";
   document.querySelector("main").style.display = "none";
   document.querySelector(".btn--instructions").style.display = "none";
 };
 
-inputBtn.click();
+//inputBtn.click();
 
 closeInputModal.onclick = function () {
   inputModal.style.display = "none";
+  gameName.style.display = "none";
+  diceName.style.display = "none";
   document.querySelector(".btn--instructions").style.display = "block";
   if (document.querySelector("main").style.removeProperty) {
     document.querySelector("main").style.removeProperty("display");
@@ -221,9 +229,12 @@ var okBtn = document.getElementById("okBtn");
 let userName = "You";
 okBtn.onclick = function () {
   userName = document.getElementById("username").value;
-  document.getElementById("name--0").textContent = userName;
-
+  if (userName != "") {
+    document.getElementById("name--0").textContent = userName;
+  }
   inputModal.style.display = "none";
+  gameName.style.display = "none";
+  diceName.style.display = "none";
   document.querySelector(".btn--instructions").style.display = "block";
   if (document.querySelector("main").style.removeProperty) {
     document.querySelector("main").style.removeProperty("display");
@@ -231,3 +242,20 @@ okBtn.onclick = function () {
     document.querySelector("main").style.removeAttribute("display");
   }
 };
+
+function confetti() {
+  const winner = document.querySelector('.particletext.confetti');
+  var confetticount = (winner.offsetWidth / 50) * 10;
+  console.log("confetticount :",confetticount);
+     console.log(confetticount);
+      for(var i = 0; i <= confetticount; i++) {
+        var newChild = '<span class="particle c' + rnd(1, 2) + '" style="top:' + rnd(10, 50) + '%; left:' + rnd(0, 100) + '%;width:' + rnd(6, 8) + 'px; height:' + rnd(3, 4) + 'px;animation-delay: ' + (rnd(0, 30) / 10) + 's;"></span>';
+        winner.insertAdjacentHTML('beforeend', newChild);
+      }
+}
+
+const rnd = function(m,n) {
+      m = parseInt(m);
+      n = parseInt(n);
+      return Math.floor( Math.random() * (n - m + 1) ) + m;
+}

@@ -210,7 +210,7 @@ inputBtn.onclick = function () {
   document.querySelector(".btn--instructions").style.display = "none";
 };
 
-//inputBtn.click();
+inputBtn.click();
 
 closeInputModal.onclick = function () {
   inputModal.style.display = "none";
@@ -228,7 +228,7 @@ var okBtn = document.getElementById("okBtn");
 
 let userName = "You";
 okBtn.onclick = function () {
-  userName = document.getElementById("username").value;
+  userName = document.getElementById("username").value.split(" ")[0];
   if (userName != "") {
     document.getElementById("name--0").textContent = userName;
   }

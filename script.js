@@ -54,7 +54,7 @@ const displayDice = function (time) {
   let dice = 0;
   setTimeout(function () {
     dice = Math.trunc(Math.random() * 6) + 1;
-    console.log("dice :", dice);
+    // console.log("dice :", dice);
     if (roboDice == -1) {
       dice = 1;
     }
@@ -66,7 +66,7 @@ const displayDice = function (time) {
       roboDice += dice;
     }
   }, time * 1000);
-  console.log("out dice: ", dice);
+  // console.log("out dice: ", dice);
 };
 
 const switchPlayer = function () {
@@ -149,8 +149,10 @@ document.querySelector(".btn--new").addEventListener("click", function () {
     document.getElementById(`current--${i}`).textContent = 0;
     document.getElementById(`score--${i}`).textContent = 0;
   }
-  document.querySelector(".player--winner").classList.remove("player--winner");
-
+   document.querySelector(".player--winner").classList.remove("player--winner");
+  const removeElements = (elms) => elms.forEach(el => el.remove());
+  removeElements( document.querySelectorAll(".particle") );
+  
   if (
     document.querySelector(".player--1").classList.contains("player--active")
   ) {
@@ -246,8 +248,7 @@ okBtn.onclick = function () {
 function confetti() {
   const winner = document.querySelector('.particletext.confetti');
   var confetticount = (winner.offsetWidth / 50) * 10;
-  console.log("confetticount :",confetticount);
-     console.log(confetticount);
+  // console.log("confetticount :",confetticount);
       for(var i = 0; i <= confetticount; i++) {
         var newChild = '<span class="particle c' + rnd(1, 2) + '" style="top:' + rnd(10, 50) + '%; left:' + rnd(0, 100) + '%;width:' + rnd(6, 8) + 'px; height:' + rnd(3, 4) + 'px;animation-delay: ' + (rnd(0, 30) / 10) + 's;"></span>';
         winner.insertAdjacentHTML('beforeend', newChild);
